@@ -8,9 +8,9 @@ on:
 env:
   PROJECT_ID: repo-490410
   REGION: europe-west1
-  REPOSITORY: java-spting-boot
+  REPOSITORY: java-spring-boot
   SERVICE: spring-demo
-  IMAGE: europe-west1-docker.pkg.dev/repo-490410/my-repo/spring-demo
+  IMAGE: europe-west1-docker.pkg.dev/repo-490410/java-spring-boot/spring-demo
 
 jobs:
   deploy:
