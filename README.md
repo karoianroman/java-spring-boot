@@ -1,50 +1,67 @@
-# React Smoke Test & Cloud Run Deployment
+# Java Spring Boot Backend
 
-A specialized project demonstrating a secure **DevSecOps** pipeline for containerized React applications, featuring automated deployment to **Google Cloud Platform (GCP)**.
+A production-ready Spring Boot microservice boilerplate. This project demonstrates a robust backend architecture integrated with a high-standard **DevSecOps** pipeline, specifically tailored for enterprise-grade deployments on **Google Cloud Platform (GCP)**.
 
 ## 🚀 Overview
 
-This repository showcases a fully automated workflow that builds, scans, and deploys a React application to **Cloud Run**. The focus is on infrastructure security and verified cloud availability.
+This repository showcases a clean, scalable Java backend setup. It focuses on automation, containerization, and advanced security scanning to ensure that every deployment to **Cloud Run** is stable and secure.
 
 ## 🛠 Tech Stack
 
-- **Frontend:** React, Vite, pnpm
-- **Containerization:** Docker
-- **Cloud Provider:** Google Cloud Platform (Cloud Run, Artifact Registry)
+- **Backend:** Java 17+, Spring Boot 3.x, Maven/Gradle
+- **Containerization:** Docker (Multi-stage builds)
+- **Cloud Provider:** Google Cloud Platform (Cloud Run, Artifact Registry, Cloud SQL)
 - **CI/CD:** GitHub Actions
-- **Security:** Gitleaks, Hadolint, Trivy
+- **Security:** Gitleaks, Hadolint, Trivy, SonarLint/Checkstyle
 
 ---
 
-## 🏗 CI/CD & DevSecOps Pipeline
+## 🏗 CI/CD Pipeline (DevSecOps)
 
-The automation in this project (GitHub Actions) performs a high-standard security audit and deployment flow:
+The pipeline is designed to enforce quality and security at every stage of the development lifecycle:
 
-### 🛡️ Security Gates (Automated)
-* **Secret Scanning (Gitleaks):** Checks every commit for exposed API keys, tokens, or credentials.
-* **Dockerfile Linting (Hadolint):** Validates the Dockerfile for security best practices (e.g., proper base images and layer optimization).
-* **Vulnerability Scanning (Trivy):** Scans the final Docker image for OS-level and library vulnerabilities (CVEs) before deployment.
+### 🛡️ Security & Quality Gates
+* **Gitleaks:** Scans for sensitive data (passwords, GCP keys) in the codebase.
+* **Hadolint:** Ensures the `Dockerfile` is optimized (e.g., using non-root users, minimizing layers).
+* **Trivy Scan:** Scans the final JAR-based Docker image for vulnerabilities in the JRE and dependencies.
+* **Static Code Analysis:** (Optional/Included) Checkstyle or Maven Enforcer rules to maintain Java coding standards.
 
-### 📦 Cloud Deployment Flow
-* **Workload Identity Federation:** Secure, keyless authentication to Google Cloud—no static Service Account keys required.
-* **Automated Build & Push:** Packages the app into a Docker container and stores it in **Artifact Registry**.
-* **Serverless Hosting:** Deploys directly to **Cloud Run** with automated IAM configuration for public access.
+### 📦 Deployment Flow
+* **Workload Identity Federation:** Secure, keyless authentication between GitHub and Google Cloud.
+* **Artifact Registry:** Automates the build and push of the Java container image tagged with the Git SHA.
+* **Cloud Run:** Serverless deployment with fine-tuned JVM memory management and auto-scaling.
+* **Database Integration:** Configured for secure connections to **Cloud SQL** (PostgreSQL/MySQL) via Secret Manager.
 
-### 🔥 Verification
-* **Post-Deployment Smoke Test:** Once the deploy is complete, the pipeline automatically retrieves the live URL and uses `curl` to verify that the application is running and accessible (HTTP 200).
+### 🧪 Testing Strategy
+* **JUnit & Mockito:** Automated execution of unit and integration tests during the `mvn package` phase.
+* **Smoke Test:** Post-deployment validation using `curl` to verify the `/actuator/health` or API endpoints are live.
 
 ---
 
-## 🚦 Local Setup
+## 🚦 Getting Started
 
-### Installation
-```bash
-pnpm install
+### Prerequisites
+- [JDK 17+](https://adoptium.net/)
+- [Maven](https://maven.apache.org/) or [Gradle](https://gradle.org/)
+- [Docker](https://www.docker.com/)
 
-Build & Run
-Bash
+### Local Development
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/karoianroman/java-spring-boot-backend.git](https://github.com/karoianroman/java-spring-boot-backend.git)
+   cd java-spring-boot-backend
 
-pnpm build
-# To run with Docker locally:
-docker build -t react-smoke-test .
-docker run -p 8080:8080 react-smoke-test
+    Build the project:
+    Bash
+
+    ./mvnw clean install
+
+    Run the application:
+    Bash
+
+    ./mvnw spring-boot:run
+
+    Run tests:
+    Bash
+
+    ./mvnw test
