@@ -9,7 +9,7 @@ env:
   PROJECT_ID: repo-490410
   REGION: europe-west1
   REPOSITORY: java-spring-boot
-  SERVICE: spring-demo
+  SERVICE: spring-boot
   IMAGE: europe-west1-docker.pkg.dev/repo-490410/java-spring-boot/spring-demo
 
 jobs:
